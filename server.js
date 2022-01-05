@@ -4,13 +4,16 @@ const morgan = require('morgan')
 const mongoose = require('mongoose')
 const app = express()
 const port = process.env.PORT || 9000
+require("dotenv").config()
+
+const uri = process.env.MONGODB_URI || "mongodb+srv://forrest:Juliette92@cluster0.ab21w.mongodb.net/bounty-hunter?retryWrites=true&w=majority"
 
 // every request (middleware)
 app.use(express.json())
 app.use(morgan('dev'))
 // connect to database
-
-mongoose.connect("mongodb+srv://forrest:Juliette92@cluster0.ab21w.mongodb.net/bounty-hunter?retryWrites=true&w=majority", () => console.log('remote db connection'));
+mongoose.connect(uri, () => console.log('connected thru mongodb'))
+// mongoose.connect("mongodb+srv://forrest:Juliette92@cluster0.ab21w.mongodb.net/bounty-hunter?retryWrites=true&w=majority", () => console.log('remote db connection'));
 
 // mongoose.connect('mongodb://localhost:27017/bounties', 
 // // {
@@ -30,17 +33,17 @@ app.use((err, req, res, next) => {
     return res.send({errMsg: err.message})
 })
 
-// // ... other imports 
-// const path = require("path")
+// ... other imports 
+const path = require("path")
 
-// // ... other app.use middleware 
-// app.use(express.static(path.join(__dirname, "client", "build")))
+// ... other app.use middleware 
+app.use(express.static(path.join(__dirname, "client", "build")))
 
-// // ...
-// // Right before your app.listen(), add this:
-// app.get("*", (req, res) => {
-//     res.sendFile(path.join(__dirname, "client", "build", "index.html"));
-// });
+// ...
+// Right before your app.listen(), add this:
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+});
 
 
 
