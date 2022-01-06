@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 const app = express()
 const port = process.env.PORT || 9000
 require("dotenv").config()
-const uri = process.env.MONGODB_URI || "mongodb+srv://forrest:Juliette92@cluster0.ab21w.mongodb.net/bounty-hunter?retryWrites=true&w=majority"
+const uri = process.env.MONGODB_URI
 
 // ... other imports 
 const path = require("path")
@@ -18,7 +18,7 @@ app.use(express.static(path.join(__dirname, "client", "build")))
 
 // connect to database
 mongoose.connect(uri, () => console.log('connected thru mongodb'))
-// mongoose.connect("mongodb+srv://forrest:Juliette92@cluster0.ab21w.mongodb.net/bounty-hunter?retryWrites=true&w=majority", () => console.log('remote db connection'));
+
 // mongoose.connect('mongodb://localhost:27017/bounties',
 // () => console.log('Connected to the database.') 
 // )
@@ -26,6 +26,7 @@ mongoose.connect(uri, () => console.log('connected thru mongodb'))
 // different routes
 app.use('/', require('./routes/homeInfo'))
 // app.use('/bounty', require('./routes/bounty'))
+
 // error handling
 app.use((err, req, res, next) => {
     console.log(err)
