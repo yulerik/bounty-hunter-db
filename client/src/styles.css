@@ -24,7 +24,7 @@ form {
     grid-gap: 5px;
     justify-items: center;
     grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: 1fr 1fr 1/2fr;
+    grid-template-rows: 1fr 1fr 1fr;
 }
 form label {
     grid-row: 1/2; 
@@ -36,8 +36,9 @@ form input {
     grid-row: 2/3; 
 }
 form button {
-    grid-column: 4/5;
+    grid-column: 3/4;
     grid-row: 3/4;
+    justify-self: stretch;
 }
 #forms {
     background-color: #333;
